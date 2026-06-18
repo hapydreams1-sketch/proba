@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-import matplotlib.patches mpatches
+import matplotlib.patches as mpatches
 
 from scipy.stats import spearmanr
 from utils import basic_stats, confidence_interval, conditional_prob, chi_square
