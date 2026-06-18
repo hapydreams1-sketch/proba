@@ -47,3 +47,15 @@ def chi_square(df, colA, colB):
         return 0, 1.0, 0, None
         
     return stats.chi2_contingency(tabla)
+
+def correlacion_spearman(df, col_x, col_y):
+    data_x = pd.to_numeric(df[col_x], errors="coerce")
+    data_y = pd.to_numeric(df[col_y], errors="coerce")
+    
+    temp_df = pd.DataFrame({"X": data_x, "Y": data_y}).dropna()
+    
+    if len(temp_df) < 2:
+        return 0.0, 1.0
+        
+    rho, p_val = stats.spearmanr(temp_df["X"], temp_df["Y"])
+    return rho, p_val
