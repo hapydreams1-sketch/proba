@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.patches as mpatches
 
-from scipy.stats import spearmanr
 from utils import basic_stats, confidence_interval, conditional_prob, chi_square
 
 # ──────────────────────────────────────────────────────────────────────
@@ -44,9 +43,9 @@ VAR_DESCRIPCIONES = {
 EXPLICACIONES_TABLA = {
     "Media":               "Promedio aritmetico (1-4). Indica la tendencia central del grupo.",
     "Moda":                "Valor mas repetido. Señala la respuesta mayoritaria.",
-    "Mediana":             "Valor intermedio que divide los datos en dos mitades.",
+    "Mediana":             "Valor intermedio que divide la distribucion en dos mitades.",
     "Varianza":            "Dispersion de los datos. Valores altos indican opiniones divididas.",
-    "Desviación estándar": "Distancia promedio respecto a la media. Evalua la cohesion del grupo.",
+    "Desviación estándar": "Distancia promedio respecto a la media. Evalua la consistencia del grupo.",
 }
 
 VARIABLES        = list(VAR_DESCRIPCIONES.keys())
@@ -179,7 +178,7 @@ def render_prueba_hipotesis(df):
         if dof == 0:
             st.warning("Error de Varianza: Los Grados de Libertad son 0. La poblacion es homogenea y carece de diversidad para calcular una correlacion.")
         elif p_val < 0.05:
-            st.success(f"**Resultado:** Se RECHAZA la Hipotesis Nula (H0). Los datos prueban que **{var_indep}** SÍ afecta el comportamiento de **{var_dep}**.")
+            st.success(f"**Resultado:** Se RECHAZA la Hipotesis Nula (H0). Los datos prueban que **{var_indep}** SI afecta el comportamiento de **{var_dep}**.")
         else:
             st.info(f"**Resultado:** NO se rechaza la Hipotesis Nula (H0). No existe evidencia suficiente para afirmar que **{var_indep}** influye en **{var_dep}**.")
     st.markdown("---")
@@ -278,7 +277,7 @@ def render_analisis_metodologia_completa(df):
 
 
 # ──────────────────────────────────────────────────────────────────────
-# ANALISIS GRUPAL DETALLADO POR METRICA ISLADA
+# ANALISIS GRUPAL DETALLADO POR METRICA AISLADA
 # ──────────────────────────────────────────────────────────────────────
 def render_analisis_grupo_variable(df, variable):
     desc = VAR_DESCRIPCIONES.get(variable, variable)
@@ -442,9 +441,9 @@ def render_comparativa_visual_individual(df_grupo, df_usuario, variable):
     pct_coincidencia = (coincidencias / len(data_grupo)) * 100
 
     st.info(
-        f"**Conclusiones de la Comparativa Visual:**\n"
+        f"**Conclusiones de tu Posicion Intergrupal:**\n"
         f"Seleccionaste la metrica {val_usuario:.0f}. Matematicamente, el {pct_coincidencia:.1f}% de los encuestados comparte exactamente tu misma posicion. "
-        "Alinearse con el centro denota una adopcion estandarizada, mientras que situarse en los extremos señala el uso de metodologias operativas no convencionales frente a tus pares."
+        "Alinearse con el centro de la distribucion denota una adopcion estandarizada de la tecnologia, mientras que situarse en los extremos señala el uso de metodologias operativas no convencionales o altamente especializadas frente a tus pares."
     )
     st.markdown("---")
 
@@ -484,7 +483,7 @@ def render_evaluacion_individual_y_tacticas(df_usuario):
     st.info(
         "**Conclusiones de tu Perfil Individual:**\n"
         "La longitud de las barras expone los procesos donde concedes mayor delegacion tecnologica frente a las areas donde preservas un control manual directo. "
-        "Un grafico marcadamente asimetrico evidencia un uso puramente tactico, mientras que un esquema uniforme indica una adopcion de caracter integral."
+        "Un grafico marcadamente asimetrico evidencia un uso puramente tactico, mientras que un esquema uniforme indica una adopcion sistematica integral a lo largo de tu flujo de trabajo."
     )
     st.markdown("---")
 
@@ -493,25 +492,25 @@ def render_evaluacion_individual_y_tacticas(df_usuario):
         st.write("Diagnostico: Alta Integracion Operativa. Tu dependencia de la automatizacion sugiere eficiencia en tareas pesadas, con el riesgo inherente de atrofiar la agilidad analitica pura si se omite la validacion teorica.")
         st.markdown(
             "**Tacticas de Optimizacion:**\n"
-            "* Modo de Auditoria: Dedica 20 minutes a diseñar la logica o seudocodigo antes de habilitar la asistencia generativa.\n"
-            "* Validacion Inversa: Configura el modelo para que detecte vulnerabilidades en tus planteamientos manuales, evitando la generacion desde cero.\n"
-            "* Aislamiento Programado: Ejecuta bloques de desarrollo de 2 horas en desconexion para ejercitar el razonamiento critico."
+            "* Modo de Auditoria: Dedica 20 minutos a diseñar la logica o seudocodigo analogico antes de habilitar la asistencia generativa.\n"
+            "* Validacion Inversa: Configura el modelo para que detecte vulnerabilidades o ineficiencias en tus planteamientos manuales, en lugar de generar la arquitectura desde cero.\n"
+            "* Aislamiento Programado: Ejecuta bloques de desarrollo de 2 horas en desconexion total para preservar y ejercitar el razonamiento critico individual."
         )
     elif media_usuario >= 2.0:
         st.write("Diagnostico: Adopcion Pragmatica. Reflejas un balance tecnico adecuado, empleando los modelos para acelerar procesos intermedios mientras retienes el dominio sobre la integracion final.")
         st.markdown(
             "**Tacticas de Optimizacion:**\n"
-            "* Interaccion Socratica: Ordena al sistema formular preguntas analiticas que conduzcan a la solucion, evitando la entrega de resultados directos.\n"
-            "* Delegacion Selectiva: Restringe la automatizacion al formateo o generacion de datos de prueba, blindando el desarrollo del nucleo estructural.\n"
-            "* Refactorizacion Obligatoria: Toda linea de codigo generada debe ser reescrita e interpretada bajo tus propios esquemas de sintaxis antes de implementarse."
+            "* Interaccion Socratica: Ordena al sistema formular preguntas secuenciales y analiticas que conduzcan a la solucion, evitando la entrega de bloques operativos completos.\n"
+            "* Delegacion Selectiva: Restringe la automatizacion al formateo, configuracion inicial o generacion de datos de prueba, blindando el desarrollo del nucleo del proyecto.\n"
+            "* Refactorizacion Obligatoria: Toda linea de codigo o conclusion generada debe ser reescrita e interpretada bajo tus propios esquemas de sintaxis antes de implementarse."
         )
     else:
         st.write("Diagnostico: Adopcion Conservadora. Tus procesos priorizan la traccion teorica y el metodo formativo tradicional. Aunque esto solidifica bases tecnicas, sacrifica metricas de eficiencia operativa valiosas en el mercado laboral.")
         st.markdown(
             "**Tacticas de Optimizacion:**\n"
-            "* Micro-Delegacion: Asigna al modelo tareas exclusivamente logisticas, como planificacion de cronogramas o extraccion de datos bibliograficos.\n"
-            "* Consultoria Semantica: Utiliza el motor como un glosario analitico para abstraer y simplificar conceptos de alta densidad sin afectar la resolucion central.\n"
-            "* Arquitecturas Base: Mitiga la friccion de arranque permitiendo que la plataforma genere el esqueleto inicial del script, acelerando el inicio operativo."
+            "* Micro-Delegacion: Asigna al modelo tareas exclusivamente logisticas, como planificacion de diagramas o extraccion automatizada de datos bibliograficos.\n"
+            "* Consultoria Semantica: Utiliza el motor como un glosario analitico para abstraer y simplificar conceptos de alta densidad tecnica sin afectar la resolucion central del problema.\n"
+            "* Arquitecturas Base: Mitiga la friccion de arranque permitiendo que la plataforma genere el esqueleto inicial del documento o script, acelerando el inicio operativo."
         )
 
     st.markdown(f"#### Perspectiva Disciplinaria: {carrera_val}")
@@ -525,30 +524,30 @@ def render_evaluacion_individual_y_tacticas(df_usuario):
     elif carrera_val in ["Ingeniería Aeronáutica", "Mecánica", "Ingeniería en Sistemas Ambientales"]:
         mensaje_disciplina = "El diseño generativo asistido reduce significativamente los tiempos de iteracion inicial, pero la aprobacion sobre integridad termodinamica, impacto ambiental regulatorio y coeficientes de fatiga de materiales derivan en responsabilidades civiles. Todo resultado emitido por IA requiere auditoria determinista humana de tolerancia cero."
     else:
-        mensaje_disciplina = "Frente a la automatizacion masiva, la destreza operativa pura ha perdido traccion competitiva. Para afianzar el rendimiento profesional a largo plazo, la prioridad absoluta debe concentrarse en la gestion de tacticas direccionales, la mitigacion de crisis atipicas y el pensamiento de caracter sistemico."
+        mensaje_disciplina = "Frente a la automatizacion masiva, la destreza operativa pura ha perdido traccion competitiva. Para afianzar el rendimiento profesional a largo plazo, la prioridad absoluta debe concentrarse en la gestion de tacticas direccionales, la mitigacion de crisis atipicas y el pensamiento sistemico."
     
     st.info(mensaje_disciplina)
 
     st.markdown(f"#### Proyeccion Operativa de Nivel ({ciclo_val_texto})")
-    if num_cycle <= 3:
+    if num_ciclo <= 3:
         if media_usuario >= 3.0:
-            texto_nivel = f"Fase de Fundamentos: Te encuentras cursando el tronco comun de {carrera_val}. La prioridad es consolidar el razonamiento matematico y deductivo base. El uso prematuro y excesivo de plataformas generativas para resolver ejercicios de tronco comun bloqueara la capacidad de desarrollar logica avanzada. Reduce el uso de automatizaciones y mantenlo como glosario analitico."
+            texto_nivel = f"Fase de Fundamentos: Te encuentras cursando el tronco comun de {carrera_val}. La prioridad es consolidar el razonamiento matematico y deductivo base. El uso prematuro y excesivo de plataformas generativas para resolver ejercicios de tronco comun bloqueara irreversiblemente tu capacidad de desarrollar logica avanzada. Reduce de inmediato el uso automatizado; emplea la herramienta exclusivamente como glosario analitico."
         elif media_usuario >= 2.0:
-            texto_nivel = f"Fase de Fundamentos: Atraviesas las materias de tronco comun en {carrera_val}. Mantienes un uso moderado. Asegura no cruzar la linea hacia la automatizacion de tus ejercicios base. Emplea la herramienta rigurosamente como un tutor de apoyo para clarificar conceptos teoricos, garantizando que el esfuerzo analitico siga siendo tuyo."
+            texto_nivel = f"Fase de Fundamentos: Atraviesas las materias de tronco comun en {carrera_val}. Mantienes un uso moderado. Asegura no cruzar la linea hacia la automatizacion de tus ejercicios base. Emplea la herramienta rigurosamente como un tutor de apoyo para clarificar conceptos teoricos, garantizando que el esfuerzo analitico fundacional siga siendo tuyo."
         else:
-            texto_nivel = f"Fase de Fundamentos: Tu enfoque tradicional es altamente beneficioso para el tronco comun de {carrera_val}. Al resolver los ejercicios de forma de diseño manual aseguras el desarrollo de las conexiones logicas requeridas para las asignaturas de especialidad. Manten este rigor analitico."
+            texto_nivel = f"Fase de Fundamentos: Tu enfoque tradicional es altamente beneficioso para el tronco comun de {carrera_val}. Al resolver los ejercicios de forma analogica aseguras el desarrollo de las conexiones logicas requeridas para las asignaturas de especialidad. Manten este rigor y utiliza la tecnologia solo para optimizar labores organizativas menores."
     elif num_ciclo <= 7:
         if media_usuario >= 3.0:
-            texto_nivel = f"Fase de Integracion: Las materias de tronco comun quedaron atras; enfrentas la carga de asignaturas tecnicas avanzadas de la especialidad en {carrera_val}. Tu alta dependencia de la IA representa un riesgo frente al escrutinio docente, ya que evaluaran la viabilidad y la autoria intelectual de tus desarrollos complejos, no la mera velocidad. Debes trasladar el peso de la resolucion a tu propio analisis y usar la IA solo para tareas secundarias o depuracion de logs de errores. Se abren las primeras ventanas hacia oportunidades laborales; si omites el aprendizaje empirico y dejas que la automatizacion resuelva los problemas, llegaras al cierre academico sin la capacidad analitica basica que exige el sector corporativo."
+            texto_nivel = f"Fase de Integracion: Las materias de tronco comun quedaron atras; enfrentas la carga volumetrica y pesada de la especialidad en {carrera_val}. Tu dependencia actual de la IA representa un riesgo frente al escrutinio docente, ya que evaluaran la viabilidad y autoria intelectual de tus diseños complejos. Debes trasladar el peso de la resolucion a tu propio analisis y usar la IA solo para depurar logs de errores (debugging). Simultaneamente, se abren ventanas hacia oportunidades laborales; si omites el aprendizaje empirico y permites que la automatizacion absorba la resolucion, llegaras al cierre academico sin la capacidad analitica que la industria exige."
         elif media_usuario >= 2.0:
-            texto_nivel = f"Fase de Integracion: Enfrentas la carga de asignaturas tecnicas avanzadas de la especialidad en {carrera_val}. Mantienes un balance moderado. Se requiere una adopcion tactica para optimizar tiempos operativos, depurar errores y gestionar repositorios, garantizando la autoria de tus desarrollos. Los docentes evaluaran la eficiencia de tus soluciones. Ante la apertura de oportunidades laborales, tu capacidad de combinar aprendizaje autodidacta con asistencia tecnologica controlada te permitira edificar un portafolio competitivo."
+            texto_nivel = f"Fase de Integracion: Enfrentas la carga pesada de las materias de especialidad en {carrera_val}. Mantienes un buen equilibrio. Se requiere una adopcion tactica para optimizar tiempos operativos, depurar errores y gestionar repositorios, garantizando la autoria intelectual de tus desarrollos. Los docentes evaluaran la eficiencia algoritmica y tecnica de tus soluciones. Ante la apertura de oportunidades laborales, tu capacidad de combinar aprendizaje autodidacta con asistencia tecnologica te permitira edificar un portafolio competitivo."
         else:
-            texto_nivel = f"Fase de Integracion: La complejidad de las asignaturas tecnicas avanzadas de la especialidad en {carrera_val} exige eficiencia. Tu bajo nivel de adopcion tecnologica puede generar retrasos en tus entregas. Los docentes evaluaran la optimizacion de tus soluciones complejas. Debes comenzar a integrar la IA para agilizar la depuracion de errores. Las primeras oportunidades laborales requieren agilidad operativa; si te mantienes aislado de la automatizacion, estaras en desventaja competitiva frente al mercado."
+            texto_nivel = f"Fase de Integracion: La complejidad y el volumen de las materias de especialidad en {carrera_val} exigen eficiencia. Tu bajo nivel de adopcion tecnologica puede generar cuellos de botella criticos. Los docentes evaluaran la eficiencia de tus soluciones complejas. Debes comenzar a integrar la IA para optimizar tiempos operativos y depurar errores. Las primeras oportunidades laborales requieren agilidad; si te mantienes aislado de la automatizacion, estaras en desventaja competitiva frente al sector corporativo."
     else:
         if media_usuario >= 3.0:
-            texto_nivel = f"Fase Terminal: Orientacion hacia la insercion laboral en {carrera_val}. Tu perfil exhibe una sobre-utilizacion de recursos automatizados que sera penalizada en procesos de reclutamiento tecnico. Las plataformas deben utilizarse para auditar eficiencias y generar documentacion tecnica, no para suplir el diseño nucleo. Debes evidenciar autonomia de inmediato mediante el desarrollo de proyectos independientes sin asistencia para validar tu competencia profesional ante empleadores."
+            texto_nivel = f"Fase Terminal: Orientacion hacia la insercion laboral en {carrera_val}. Tu perfil exhibe una sobre-utilizacion de recursos automatizados que sera penalizada en procesos de reclutamiento tecnico. Las plataformas deben utilizarse para depurar logica, auditar eficiencias y generar documentacion tecnica, no para suplir el diseño nucleo. Debes evidenciar autonomia de inmediato mediante el desarrollo de proyectos independientes sin asistencia para validar tu competencia profesional ante empleadores."
         elif media_usuario >= 2.0:
-            texto_nivel = f"Fase Terminal: Orientacion hacia la insercion laboral en {carrera_val}. Tu uso equilibrado te posiciona favorablemente. Utiliza las plataformas tecnologicas para depurar logica, auditar eficiencias, generar documentacion y simular escenarios de evaluaciones corporativas, exhibiendo madurez tecnologica y autonomia tecnica ante futuros empleadores en tu area."
+            texto_nivel = f"Fase Terminal: Orientacion hacia la insercion laboral en {carrera_val}. Tu uso equilibrado te posiciona favorablemente. Utiliza las plataformas tecnologicas para depurar logica, auditar eficiencias, generar documentacion y simular escenarios de entrevistas corporativas, exhibiendo madurez tecnologica y autonomia tecnica ante futuros empleadores en tu area."
         else:
             texto_nivel = f"Fase Terminal: Orientacion hacia la insercion laboral en {carrera_val}. Es mandatorio que aceleres tu dominio sobre herramientas de asistencia para equiparar los estandares de productividad corporativa. Utiliza las plataformas para auditar eficiencias y comprender flujos de trabajo automatizados. El mercado laboral exige precision y velocidad, y la adopcion de estas tecnologias es indispensable para destacar en procesos de reclutamiento."
     
